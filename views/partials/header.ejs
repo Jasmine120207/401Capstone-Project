@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= typeof title !== 'undefined' ? title : 'Student Portal' %></title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <nav>
+    <div class="container">
+      <ul>
+        <li class="logo">
+          <a href="/">📚 Student Portal</a>
+        </li>
+        <li class="nav-links">
+          <% if (session.userId) { %>
+            <a href="/dashboard">Dashboard</a>
+            <a href="/dashboard/profile">Profile</a>
+            <a href="/auth/logout" class="btn-logout">Logout</a>
+          <% } else { %>
+            <a href="/">Home</a>
+            <a href="/auth/login">Login</a>
+            <a href="/auth/signup">Sign Up</a>
+          <% } %>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <main>
