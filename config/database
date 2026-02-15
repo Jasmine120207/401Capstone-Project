@@ -1,0 +1,101 @@
+import sqlite3 from 'sqlite3';
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+const dbPath = path.join(__dirname, '../database.db');
+
+export const db = new sqlite3.Database(dbPath, (err) => {
+  if (err) {
+    console.error('Database connection error:', err);
+  } else {
+    console.log('Connected to SQLite database');
+  }
+});
+
+// Enable foreign keys
+db.run('PRAGMA foreign_keys = ON');
+
+export const initializeDatabase = () => {
+  return new Promise((resolve, reject) => {
+    db.serialize(() => {
+      // Create users table
+      db.run(
+        `CREATE TABLE IF NOT EXISTS users (
+          id INTEGER PRIMARY KEY AUTOINCREMENT,
+          firstname TEXT NOT NULL,
+          lastname TEXT NOT NULL,
+          email TEXT NOT NULL UNIQUE,
+          password TEXT NOT NULL,
+          enrollmentNo TEXT UNIQUE,
+          department TEXT,
+          semester INTEGER,
+          cgpa REAL,
+          createdAt DATETIME DEFAULT CURRENT_TIMESTAMP
+        )`,
+        (err) => {
+          if (err) reject(err);
+          else console.log('Users table created/exists');
+        }
+      );
+
+      // Create student profiles table
+      db.run(
+        `CREATE TABLE IF NOT EXISTS student_profiles (
+          id INTEGER PRIMARY KEY AUTOINCREMENT,
+          userId INTEGER NOT NULL UNIQUE,
+          bio TEXT,
+          avatar TEXT,
+          phone TEXT,
+          address TEXT,
+          dob TEXT,
+          updatedAt DATETIME DEFAULT CURRENT_TIMESTAMP,
+          FOREIGN KEY(userId) REFERENCES users(id) ON DELETE CASCADE
+        )`,
+        (err) => {
+          if (err) reject(err);
+          else console.log('Student profiles table created/exists');
+        }
+      );
+
+      // Create courses table
+      db.run(
+        `CREATE TABLE IF NOT EXISTS courses (
+          id INTEGER PRIMARY KEY AUTOINCREMENT,
+          courseCode TEXT NOT NULL UNIQUE,
+          courseName TEXT NOT NULL,
+          credits INTEGER,
+          professor TEXT,
+          semester INTEGER,
+          description TEXT
+        )`,
+        (err) => {
+          if (err) reject(err);
+          else console.log('Courses table created/exists');
+        }
+      );
+
+      // Create enrollments table
+      db.run(
+        `CREATE TABLE IF NOT EXISTS enrollments (
+          id INTEGER PRIMARY KEY AUTOINCREMENT,
+          userId INTEGER NOT NULL,
+          courseId INTEGER NOT NULL,
+          grade TEXT,
+          enrolledAt DATETIME DEFAULT CURRENT_TIMESTAMP,
+          FOREIGN KEY(userId) REFERENCES users(id) ON DELETE CASCADE,
+          FOREIGN KEY(courseId) REFERENCES courses(id) ON DELETE CASCADE
+        )`,
+        (err) => {
+          if (err) reject(err);
+          else console.log('Enrollments table created/exists');
+          resolve();
+        }
+      );
+    });
+  });
+};
+
+export default db;
