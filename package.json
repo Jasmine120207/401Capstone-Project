@@ -1,0 +1,33 @@
+{
+  "name": "student-portal",
+  "version": "1.0.0",
+  "description": "A comprehensive Student Portal web application built with Node.js, Express, and SQLite",
+  "main": "app.js",
+  "type": "module",
+  "scripts": {
+    "start": "node app.js",
+    "dev": "nodemon app.js"
+  },
+  "keywords": [
+    "Node.js",
+    "Express",
+    "Authentication",
+    "Database",
+    "Portal"
+  ],
+  "author": "Student",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2",
+    "ejs": "^3.1.9",
+    "dotenv": "^16.0.3",
+    "bcryptjs": "^2.4.3",
+    "sqlite3": "^5.1.6",
+    "express-session": "^1.17.3",
+    "body-parser": "^1.20.2",
+    "validator": "^13.9.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.22"
+  }
+}
