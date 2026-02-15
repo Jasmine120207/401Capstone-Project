@@ -1,0 +1,13 @@
+<%- include('./partials/header.ejs'); %>
+
+<div class="container">
+  <div class="card" style="text-align: center; margin-top: 3rem;">
+    <h1 style="color: #ef4444; margin-bottom: 1rem;">⚠️ Error</h1>
+    <p style="font-size: 1.1rem; color: #6b7280; margin-bottom: 2rem;">
+      <%= message || 'An unexpected error occurred' %>
+    </p>
+    <a href="/" class="btn btn-primary">Go to Home</a>
+  </div>
+</div>
+
+<%- include('./partials/footer.ejs'); %>
