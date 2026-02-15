@@ -1,0 +1,54 @@
+<%- include('./partials/header.ejs'); %>
+
+<div class="hero">
+  <div class="container">
+    <h1>Welcome to Student Portal</h1>
+    <p>Your one-stop destination for managing your academic journey</p>
+    <div class="hero-buttons">
+      <% if (session.userId) { %>
+        <a href="/dashboard" class="btn btn-white">Go to Dashboard</a>
+      <% } else { %>
+        <a href="/auth/login" class="btn btn-white">Login</a>
+        <a href="/auth/signup" class="btn btn-white">Sign Up</a>
+      <% } %>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="grid">
+    <div class="grid-item">
+      <h3>📊 Dashboard</h3>
+      <p>Access your personalized dashboard with all your academic information at a glance.</p>
+    </div>
+    <div class="grid-item">
+      <h3>👤 Profile Management</h3>
+      <p>Manage your profile, track your academic progress, and update your information.</p>
+    </div>
+    <div class="grid-item">
+      <h3>🔒 Secure</h3>
+      <p>Your data is protected with modern security standards and encryption.</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header">About This Application</div>
+    <p>
+      The Student Portal is a comprehensive web application designed to help students manage their academic 
+      journey efficiently. Built with Node.js and Express.js, this platform provides a secure and intuitive 
+      interface for students to access their academic information, manage their profiles, and track their progress.
+    </p>
+    <p style="margin-top: 1rem;">
+      <strong>Features:</strong>
+      <ul style="margin-left: 2rem; margin-top: 0.5rem;">
+        <li>Secure user authentication and authorization</li>
+        <li>Profile management and academic tracking</li>
+        <li>Enrollment management</li>
+        <li>Grade tracking and CGPA calculation</li>
+        <li>Responsive and user-friendly interface</li>
+      </ul>
+    </p>
+  </div>
+</div>
+
+<%- include('./partials/footer.ejs'); %>
